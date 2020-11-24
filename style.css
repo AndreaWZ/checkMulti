@@ -28,6 +28,11 @@ body {
     border-right: 1px solid lightslategray;
 }
 
+.checked {
+    text-decoration: line-through;
+    background-color: rgba(211, 211, 211, 0.925);
+}
+
 label {
     padding: 0 10px 0 10px;
     align-self: center;
