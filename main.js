@@ -1,7 +1,5 @@
 window.onload = () => {
 
-    let countClick = 0;
-
     const contents = document.getElementsByClassName("contents");
     const checkBoxes = document.getElementsByClassName("checkBox");
     const labels = document.getElementsByTagName("label");
@@ -10,8 +8,6 @@ window.onload = () => {
         checkBoxes[i].addEventListener("click", function() {
             labels[i].classList.toggle("checked");
             contents[i].classList.toggle("checked");
-            countClick++;
-            console.log(countClick);
         });
     }
    
