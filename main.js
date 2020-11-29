@@ -7,11 +7,26 @@ window.onload = () => {
 
     for(let i = 0; i < checkBoxes.length; i++){
         checkBoxes[i].addEventListener("click", function() {
-            clicks.push(i);
-            console.log(clicks);
-            // labels[i].classList.toggle("checked");
-            // contents[i].classList.toggle("checked");
+            if(clicks.length > 0){ // one o more elements
+                if(clicks.length === 1){ // only one element
+                    clicks.push(i);
+                    if(clicks[0] < clicks[1]){ // increase
+                        for(let i = clicks[0]; i <= clicks[1]; i++){
+                            labels[i].classList.toggle("checked");
+                            contents[i].classList.toggle("checked");
+                            checkBoxes[i].setAttribute("checked", "true");
+                        }
+                    } else if(clicks[0] > clicks[1]){ // decrease
+                        for(let i = clicks[1]; i <= clicks[0]; i++){
+                            labels[i].classList.toggle("checked");
+                            contents[i].classList.toggle("checked");
+                            checkBoxes[i].setAttribute("checked", "true");
+                        }
+                    }
+                }
+            } else { // zero elememts in array
+                clicks.push(i);
+            }
         });
     }
-
 }
