@@ -4,32 +4,48 @@ window.onload = () => {
     const checkBoxes = document.getElementsByClassName("checkBox");
     const labels = document.getElementsByTagName("label");
     const clicks = [];
+    var lastIndex = -1;
 
     for(let i = 0; i < checkBoxes.length; i++){
-        checkBoxes[i].addEventListener("click", function() {
-            if(clicks.length > 0){ // one o more elements
-                if(clicks.length === 1){ // only one element
-                    clicks.push(i);
-                    if(clicks[0] < clicks[1]){ // increase
-                        for(let i = clicks[0]; i <= clicks[1]; i++){
-                            labels[i].classList.add("checked");
-                            contents[i].classList.add("checked");
-                            checkBoxes[i].setAttribute("checked", "true");
+        checkBoxes[i].addEventListener("click", function(e) {
+            let isDeselected = false;
+
+            for(let j = 0; j < clicks.length; j++){
+                if(i === clicks[j]){
+                    labels[i].classList.remove("checked");
+                    contents[i].classList.remove("checked");
+                    checkBoxes[i].setAttribute("checked", "false");
+                    clicks.splice(j, 1);
+                    isDeselected = true;
+                }
+            }
+
+            if(isDeselected === false){
+                clicks.push(i);
+                checkedBoxes(i);
+
+                if(e.shiftKey && clicks.length >= 2){
+                    if(i < lastIndex) {
+                        for(let j = i +1; j < lastIndex; j++){
+                            clicks.push(j);
+                            checkedBoxes(j);
                         }
-                    } else if(clicks[0] > clicks[1]){ // decrease
-                        for(let i = clicks[1]; i <= clicks[0]; i++){
-                            labels[i].classList.add("checked");
-                            contents[i].classList.add("checked");
-                            checkBoxes[i].setAttribute("checked", "true");
+                    } else if(i > lastIndex) {
+                        for(let j = i -1; j > lastIndex; j--){
+                            clicks.push(j);
+                            checkedBoxes(j);
                         }
                     }
                 }
-            } else { // zero elememts in array
-                clicks.push(i);
-                labels[i].classList.add("checked");
-                contents[i].classList.add("checked");
-                checkBoxes[i].setAttribute("checked", "true");
+                lastIndex = i;
             }
+            console.log(clicks);
         });
+    }
+
+    function checkedBoxes(index) {
+        labels[index].classList.add("checked");
+        contents[index].classList.add("checked");
+        checkBoxes[index].setAttribute("checked", "true");
     }
 }
