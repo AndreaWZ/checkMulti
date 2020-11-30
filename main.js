@@ -23,7 +23,6 @@ window.onload = () => {
             if(isDeselected === false){
                 clicks.push(i);
                 checkedBoxes(i);
-
                 if(e.shiftKey && clicks.length >= 2){
                     if(i < lastIndex) {
                         for(let j = i +1; j < lastIndex; j++){
@@ -39,7 +38,6 @@ window.onload = () => {
                 }
                 lastIndex = i;
             }
-            console.log(clicks);
         });
     }
 
